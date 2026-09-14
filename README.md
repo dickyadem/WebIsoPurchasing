@@ -6,6 +6,16 @@ Aplikasi web purchasing / kasir berbasis katalog. Pengguna login, memilih produk
 
 Tampilan katalog mengikuti mockup `design.html` (header promo, grid produk, filter, footer).
 
+## Visual Dokumentasi
+
+### Halaman Login
+
+![Halaman login IsoBuy](assets/image/Login.png)
+
+### Halaman Katalog
+
+![Halaman katalog IsoBuy](assets/image/catalog.png)
+
 ## Fitur
 
 ### Login (`/`)
