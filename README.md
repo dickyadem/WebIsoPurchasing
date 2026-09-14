@@ -1,70 +1,197 @@
-# Getting Started with Create React App
+# IsoBuy (WebIsoPurchasing)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplikasi web purchasing / kasir berbasis katalog. Pengguna login, memilih produk, mengatur keranjang, checkout, lalu mencetak struk. Data produk, autentikasi, dan cart memakai [Fake Store API](https://fakestoreapi.com/).
 
-## Available Scripts
+Tampilan katalog mengikuti mockup `design.html` (header promo, grid produk, filter, footer).
 
-In the project directory, you can run:
+## Fitur
 
-### `npm start`
+### Login (`/`)
+- Form username dan password.
+- Token JWT disimpan di `localStorage` (`TOKEN`).
+- Setelah login berhasil, diarahkan ke katalog (`/pos`) dalam 2 detik.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Akun demo Fake Store API:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Field | Nilai |
+| --- | --- |
+| Username | `mor_2314` |
+| Password | `83r5^_` |
 
-### `npm test`
+### Katalog (`/pos`)
+- Banner promo: 15% off first purchase.
+- Header IsoBuy: pencarian, wishlist (UI), ikon keranjang dengan jumlah item.
+- Filter kiri: kategori (dari data produk), harga min/max, rating, reset.
+- Grid produk: gambar, judul, harga IDR, tombol tambah ke keranjang.
+- Urutan: Featured, harga naik/turun, rating tertinggi.
+- Pencarian memfilter judul dan deskripsi.
+- Produk yang sama tidak bisa ditambah dua kali ke keranjang.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Kategori Shop di footer ikut data produk yang sedang dimuat, misalnya:
 
-### `npm run build`
+- men's clothing
+- jewelery
+- electronics
+- women's clothing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Keranjang
+- Drawer dari kanan (shopping bag).
+- Ubah kuantitas, hapus item, subtotal per baris.
+- Grand total = subtotal + PPN 11%.
+- Checkout memanggil `POST /carts` (user id dari JWT, tanggal hari ini, daftar `productId` + `quantity`).
+- Setelah sukses, keranjang dikosongkan. Pengguna bisa langsung cetak struk.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Cetak struk (`/pos/print`)
+- Tabel: judul, harga, kuantitas, subtotal, total.
+- `window.print()` otomatis saat halaman terbuka; tombol Print dan Back tersedia.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Footer katalog
+- Kontak, live chat, message, Instagram / YouTube / Facebook.
+- Shop (kategori produk nyata).
+- Loyalty, Quick Links, tombol App Store / Google Play, tautan legal.
+- Tautan selain Shop masih placeholder (`#`), sesuai mockup.
 
-### `npm run eject`
+## Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Bagian | Teknologi |
+| --- | --- |
+| UI | React 18, Create React App |
+| Routing | react-router-dom v6 |
+| HTTP | axios |
+| Komponen form/kartu | Bootstrap 5, react-bootstrap |
+| Ikon | react-icons |
+| API | Fake Store API (`https://fakestoreapi.com`) |
+| Styling | `src/App.css` (katalog + login), `src/index.css` |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tidak memakai Tailwind di runtime aplikasi. File `design.html` hanya referensi visual (Tailwind CDN + Phosphor).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Rute
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Path | Halaman | File |
+| --- | --- | --- |
+| `/` | Login | `src/pages/LoginPage.js` |
+| `/pos` | Katalog + keranjang | `src/pages/POSPage.js` |
+| `/pos/print` | Struk | `src/pages/POSPrintPage.js` |
 
-## Learn More
+Router ada di `src/App.js`. `ContainerOutletWidget` hanya membungkus `<Outlet />`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Struktur kode
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+src/
+  App.js
+  App.css
+  config.js                 # BASE_URL Fake Store API
+  pages/
+    LoginPage.js
+    POSPage.js
+    POSPrintPage.js
+  components/catalog/
+    CatalogHeader.js
+    CatalogFilters.js
+    CatalogFooter.js
+    ProductGrid.js
+    ProductCard.js
+    TransactionPanel.js
+  services/
+    AuthService.js          # POST /auth/login, token JWT
+    ProductService.js       # GET /products
+    CheckoutService.js      # POST /carts
+  utils/helpers.js          # duplikat item, format IDR
+  widgets/commons/
+    ContainerOutletWidget.js
+design.html                 # mockup UI katalog + footer
+```
 
-### Code Splitting
+State katalog (produk, filter, keranjang, total) hidup di `POSPage`. Komponen catalog hanya menerima props.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## API yang dipakai
 
-### Analyzing the Bundle Size
+Base URL: `https://fakestoreapi.com` (`src/config.js`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Method | Endpoint | Dipakai untuk |
+| --- | --- | --- |
+| `POST` | `/auth/login` | Login |
+| `GET` | `/products` | Daftar katalog |
+| `POST` | `/carts` | Checkout |
 
-### Making a Progressive Web App
+Payload checkout:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```json
+{
+  "userId": 1,
+  "date": "2026-09-14",
+  "products": [{ "productId": 1, "quantity": 2 }]
+}
+```
 
-### Advanced Configuration
+`userId` diambil dari claim `sub` di JWT.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Alur transaksi
 
-### Deployment
+1. Login → token disimpan.
+2. `GET /products` mengisi grid dan kategori footer/filter.
+3. Tambah produk ke `productChoices` (quantity awal 1, subtotal = harga).
+4. Ubah quantity → `subtotal = quantity * price`.
+5. Total tampilan = `(sum subtotal) * 1.11` (PPN 11%).
+6. Checkout → `POST /carts` → konfirmasi print → `/pos/print` dengan `location.state`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Menjalankan
 
-### `npm run build` fails to minify
+Butuh Node.js dan npm.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install
+npm start
+```
+
+Buka [http://localhost:3000](http://localhost:3000).
+
+Perintah lain:
+
+```bash
+npm test          # test runner CRA
+npm run build     # production build ke folder build/
+```
+
+Jangan `npm run eject` kecuali memang perlu mengubah konfigurasi webpack secara permanen.
+
+## Deploy ke GitHub Pages
+
+Aplikasi ini project site, URL-nya:
+
+`https://dickyadem.github.io/WebIsoPurchasing`
+
+Yang sudah disiapkan di repo:
+
+- `homepage` di `package.json` (path aset `/WebIsoPurchasing`)
+- `BrowserRouter basename={process.env.PUBLIC_URL}` agar rute `/pos` tidak bentrok dengan path repo
+- `postbuild` menyalin `index.html` → `404.html` supaya refresh/deep link SPA tidak 404
+- script `predeploy` / `deploy` memakai paket `gh-pages`
+
+Yang perlu kamu lakukan sekali di GitHub:
+
+1. Repo **Settings → Pages**
+2. **Source:** Deploy from a branch
+3. **Branch:** `gh-pages` / `/ (root)` — branch ini muncul setelah deploy pertama
+
+Lalu dari mesin lokal (setelah perubahan di-commit):
+
+```bash
+npm run deploy
+```
+
+Perintah itu `npm run build`, lalu push folder `build/` ke branch `gh-pages`. Tunggu 1–2 menit, buka URL di atas.
+
+Catatan Pages:
+
+- Fake Store API mengizinkan request dari browser (tidak perlu backend).
+- Token login tetap di `localStorage` browser pengunjung.
+- `npm start` lokal tidak memakai prefix `/WebIsoPurchasing`.
+
+## Catatan
+
+- Katalog `/pos` bisa dibuka tanpa login; checkout butuh token karena membaca JWT.
+- Harga API dalam USD, ditampilkan sebagai IDR via `toLocaleString("id-ID")` tanpa konversi kurs.
+- Wishlist, live chat, loyalty, dan tautan legal di footer belum punya halaman sendiri.
+- `design.html` bukan bagian runtime; ubah UI aplikasi di komponen React + `App.css`.
