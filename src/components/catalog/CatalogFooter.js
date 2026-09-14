@@ -1,11 +1,10 @@
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 
-const shopLinks = ["Cleansers", "Toners", "Serums", "Masks", "Creams", "Body Care", "Hair", "Sets"];
 const loyaltyLinks = ["Loyalty Program", "Discounts", "Earn 50 Points"];
 const quickLinks = ["Our Story", "Track Order", "FAQs", "Contact Us"];
 const legalLinks = ["Private Policy", "Terms of Service", "Refund Policy"];
 
-const CatalogFooter = () => {
+const CatalogFooter = ({ shopLinks = [] }) => {
   return (
     <footer className="catalog-footer">
       <div className="catalog-footer-inner">
@@ -24,7 +23,9 @@ const CatalogFooter = () => {
             <h5>Shop</h5>
             <ul>
               {shopLinks.map((label) => (
-                <li key={label}><a href={`#${label.toLowerCase().replace(" ", "-")}`}>{label}</a></li>
+                <li key={label}>
+                  <a className="catalog-footer-shop-link" href={`#${label}`}>{label}</a>
+                </li>
               ))}
             </ul>
           </div>

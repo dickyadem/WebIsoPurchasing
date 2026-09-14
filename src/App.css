@@ -518,6 +518,10 @@
   margin-bottom: 0.65rem;
 }
 
+.catalog-footer-shop-link {
+  text-transform: capitalize;
+}
+
 .catalog-footer-apps {
   display: grid;
   gap: 0.65rem;

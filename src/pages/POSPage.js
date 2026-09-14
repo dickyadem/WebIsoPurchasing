@@ -189,7 +189,7 @@ const POSPage = () => {
           />
         </div>
       </div>
-      <CatalogFooter />
+      <CatalogFooter shopLinks={categories} />
       {isCartOpen && (
         <TransactionPanel
           productChoices={productChoices}
