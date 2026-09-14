@@ -6,7 +6,9 @@ import ProductService from "../services/ProductService";
 import AuthService from "../services/AuthService";
 import CheckoutService from "../services/CheckoutService";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 import CatalogFilters from "../components/catalog/CatalogFilters";
+import CatalogFooter from "../components/catalog/CatalogFooter";
 import CatalogHeader from "../components/catalog/CatalogHeader";
 import ProductGrid from "../components/catalog/ProductGrid";
 import TransactionPanel from "../components/catalog/TransactionPanel";
@@ -187,6 +189,7 @@ const POSPage = () => {
           />
         </div>
       </div>
+      <CatalogFooter />
       {isCartOpen && (
         <TransactionPanel
           productChoices={productChoices}
