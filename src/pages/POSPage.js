@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 import {
-  Badge,
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  ListGroup,
-  Row,
-} from "react-bootstrap";
-import {
   helperDuplicatedInArrayObject,
-  helperReadableCurrency,
 } from "../utils/helpers";
-import { FaCartPlus, FaTrash } from "react-icons/fa";
 import ProductService from "../services/ProductService";
 import AuthService from "../services/AuthService";
 import CheckoutService from "../services/CheckoutService";
 import { useNavigate } from "react-router-dom";
+import CatalogFilters from "../components/catalog/CatalogFilters";
+import CatalogHeader from "../components/catalog/CatalogHeader";
+import ProductGrid from "../components/catalog/ProductGrid";
+import TransactionPanel from "../components/catalog/TransactionPanel";
 
 const PPN = 0.11;
 
@@ -27,6 +18,13 @@ const POSPage = () => {
   const [products, setProducts] = useState([]);
   const [productChoices, setProductChoices] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minRating, setMinRating] = useState(0);
+  const [sortBy, setSortBy] = useState("default");
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [checkout, setCheckout] = useState({
     userId: 5,
     date: "2023-02-03",
@@ -95,9 +93,10 @@ const POSPage = () => {
     if (isDuplicate) {
       alert("Produk sudah ada.");
     } else {
-      product.quantity = 1;
-      product.subtotal = 1 * product.price;
-      setProductChoices((values) => [...values, product]);
+      setProductChoices((values) => [
+        ...values,
+        { ...product, quantity: 1, subtotal: product.price },
+      ]);
     }
   };
 
@@ -119,84 +118,86 @@ const POSPage = () => {
     });
   };
 
-  const inlineTransaction = () => {
-    return (
-      <Card>
-        <Card.Header>Transaksi</Card.Header>
-        <ListGroup variant="flush">
-          <ListGroup.Item className="d-flex justify-content-between align-items-center">
-            {helperReadableCurrency(grandTotal)}
-            <Button onClick={handleCheckoutServiceCreate}>
-              <FaCartPlus />
-            </Button>
-          </ListGroup.Item>
+  const categories = [...new Set(products.map((product) => product.category))];
+  const normalizedSearch = searchTerm.toLowerCase().trim();
+  const filteredProducts = products
+    .filter((product) => {
+      const matchesSearch = [product.title, product.description]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedSearch);
+      const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
+      const matchesMinPrice = !minPrice || product.price >= Number(minPrice);
+      const matchesMaxPrice = !maxPrice || product.price <= Number(maxPrice);
+      const matchesRating = !minRating || (product.rating?.rate || 0) >= minRating;
+      return matchesSearch && matchesCategory && matchesMinPrice && matchesMaxPrice && matchesRating;
+    })
+    .sort((first, second) => {
+      if (sortBy === "price-low") return first.price - second.price;
+      if (sortBy === "price-high") return second.price - first.price;
+      if (sortBy === "rating") return (second.rating?.rate || 0) - (first.rating?.rate || 0);
+      return 0;
+    });
 
-          {productChoices.map((product, index) => (
-            <div key={index}>
-              <ListGroup.Item className="">
-                <p className="text-truncate">
-                  {product.title} <br />
-                  {helperReadableCurrency(product.price)} x {product.quantity}{" "}
-                  <br />
-                  <Badge>{helperReadableCurrency(product.subtotal)}</Badge>
-                </p>
-                <InputGroup className="mb-3 mt-2">
-                  <Form.Control
-                    type="number"
-                    name="quantity"
-                    isInvalid={!product.quantity || product.quantity === 0}
-                    onChange={(e) => handleInputProductChoices(e, index)}
-                    value={product.quantity || ""}
-                  />
-                  <Button
-                    onClick={() => handleDeleteProduct(product)}
-                    variant="outline-danger"
-                    size="sm">
-                    <FaTrash />
-                  </Button>
-                </InputGroup>
-              </ListGroup.Item>
-            </div>
-          ))}
-        </ListGroup>
-      </Card>
-    );
-  };
-
-  const inlineCard = (product) => {
-    const { id, price, title } = product;
-    return (
-      <Col key={id} md={4} className="mb-3">
-        <Card
-          style={{ cursor: "pointer" }}
-          onClick={() => handleAddProduct(product)}>
-          <Card.Img
-            variant="top"
-            src={`https://picsum.photos/1024/400?random=${product.id}`}
-          />
-          <Card.Body>
-            <Card.Title className="text-truncate">{title}</Card.Title>
-            <p>
-              <Badge>{helperReadableCurrency(price)}</Badge>
-            </p>
-            <p className="text-truncate">{product.description}</p>
-          </Card.Body>
-        </Card>
-      </Col>
-    );
+  const resetFilters = () => {
+    setSearchTerm("");
+    setSelectedCategory("all");
+    setMinPrice("");
+    setMaxPrice("");
+    setMinRating(0);
+    setSortBy("default");
   };
 
   return (
-    <>
-      <Container className="mt-4">
-        <Row>
-          <Col md={8}>
-            <Row>{products.map((product) => inlineCard(product))}</Row>
-          </Col>
-          <Col md={4}>{inlineTransaction()}</Col>
-        </Row>
-      </Container>
-    </>
+    <main className="catalog-page">
+      <CatalogHeader
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        cartCount={productChoices.length}
+        onCartClick={() => setIsCartOpen(true)}
+      />
+      <div className="catalog-container">
+        <div className="catalog-breadcrumb">Home <span>/</span> Catalog <span>/</span> All products</div>
+        <div className="catalog-title-row">
+          <div>
+            <span className="pos-kicker">IsoBuy collection</span>
+            <h1>Product catalog</h1>
+          </div>
+          <p>Find the right essentials for your next purchase.</p>
+        </div>
+        <div className="catalog-layout">
+          <CatalogFilters
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onMinPriceChange={setMinPrice}
+            onMaxPriceChange={setMaxPrice}
+            minRating={minRating}
+            onRatingChange={setMinRating}
+            onReset={resetFilters}
+          />
+          <ProductGrid
+            products={filteredProducts}
+            totalProducts={filteredProducts.length}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+            onAddProduct={handleAddProduct}
+          />
+        </div>
+      </div>
+      {isCartOpen && (
+        <TransactionPanel
+          productChoices={productChoices}
+          grandTotal={grandTotal}
+          onCheckout={handleCheckoutServiceCreate}
+          onDeleteProduct={handleDeleteProduct}
+          onQuantityChange={handleInputProductChoices}
+          onClose={() => setIsCartOpen(false)}
+        />
+      )}
+    </main>
   );
 };
 

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura — Skincare &amp; Beauty Catalog</title>
+<!-- Tailwind CSS v3 with Forms Plugin -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Phosphor Icons for crisp minimal UI icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1a1a1a;
+      background-color: #faf9f6;
+    }
+  </style>
+<style data-purpose="custom-range-slider">
+    /* Custom styling for price slider rail */
+    .slider-track {
+      background: #e5e7eb;
+      height: 2px;
+      position: relative;
+      border-radius: 9999px;
+    }
+    .slider-fill {
+      position: absolute;
+      left: 8%;
+      right: 25%;
+      height: 2px;
+      background: #24412c;
+    }
+  </style>
+</head>
+<body class="bg-[#fcfbf9] text-gray-900 antialiased min-h-screen flex flex-col">
+<!-- BEGIN: AnnouncementBar -->
+<aside class="bg-[#1f3b2b] text-white text-xs py-2.5 px-4 tracking-wide font-normal" data-purpose="announcement-banner">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<button aria-label="Previous announcement" class="text-white/70 hover:text-white transition p-1">
+<i class="ph ph-caret-left text-sm"></i>
+</button>
+<span class="text-center font-medium tracking-wider">15% off First Purchase</span>
+<button aria-label="Next announcement" class="text-white/70 hover:text-white transition p-1">
+<i class="ph ph-caret-right text-sm"></i>
+</button>
+</div>
+</aside>
+<!-- END: AnnouncementBar -->
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+<!-- Brand & Mobile Menu Toggle -->
+<div class="flex items-center gap-5">
+<button aria-label="Open Navigation Menu" class="text-gray-800 hover:text-black p-1 focus:outline-none" type="button">
+<i class="ph ph-list text-2xl"></i>
+</button>
+<a class="text-3xl font-bold tracking-tight text-gray-900 font-serif" href="#">
+          Aura
+        </a>
+</div>
+<!-- Search Bar -->
+<div class="flex-1 max-w-xl hidden md:block">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+<i class="ph ph-magnifying-glass text-lg"></i>
+</span>
+<input class="w-full pl-10 pr-4 py-2 bg-[#f8f9fa] border border-gray-200 rounded-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition" placeholder="Search" type="text"/>
+</div>
+</div>
+<!-- Right Utility Navigation -->
+<div class="flex items-center gap-6 text-sm font-medium text-gray-700">
+<a class="hidden lg:flex items-center gap-1.5 hover:text-black transition" href="#">
+<i class="ph ph-question text-lg"></i>
+<span>Help</span>
+<i class="ph ph-caret-down text-xs text-gray-500"></i>
+</a>
+<a class="flex items-center gap-1.5 hover:text-black transition" href="#">
+<i class="ph ph-user text-lg"></i>
+<span class="hidden sm:inline">Account</span>
+<i class="ph ph-caret-down text-xs text-gray-500"></i>
+</a>
+<a aria-label="Wishlist" class="hover:text-black transition relative p-1" href="#">
+<i class="ph ph-heart text-xl"></i>
+</a>
+<a aria-label="Cart" class="hover:text-black transition relative flex items-center p-1" href="#">
+<i class="ph ph-bag text-xl"></i>
+<span class="ml-1 text-xs font-semibold text-gray-800">0</span>
+</a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroBanner -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+<div class="w-full h-56 sm:h-72 lg:h-80 rounded-2xl overflow-hidden shadow-sm grid grid-cols-1 md:grid-cols-2 bg-[#eae7e1]">
+<!-- Left Hero Panel: Model with skincare foam -->
+<div class="relative h-full overflow-hidden bg-[#e4ded6]">
+<img alt="Fresh face skincare model applying foaming cleanser" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASgWfADA6TKU8UUlKqi3-5qHO-5_KQA0PDQmn_oUZtJv_xfcZUapqmZc1zKKE6NOnwQ4JvQt-iVhz4r_0K9mUwRPftvAkqwPx4WlIETkQpcPOG68sH5taVC6dcQP_5iTiw9mURtvJ8lq5vcVTAut9Qr0i_D7D8qh90DmGqFUO08GEMv4W4BjfR_b-z0yy-iUxCh0ziSy_jOtiUckBbNXp2MaNeqokS9aIN0392GDVWRuWik7vswZ00"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent"></div>
+</div>
+<!-- Right Hero Panel: Minimalist beauty cosmetic bottles on light stone texture -->
+<div class="relative h-full hidden md:block overflow-hidden bg-[#dedad2]">
+<img alt="Aesthetic skincare glass dropper bottles and cleansers on marble surface" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcodUwgVZg8zppNURxSlFC-BTJuVUmbCpx98K1qYCUcxBJU7rdM_1r-Cl1h8gkcVrIACMxXDBdj4UdiDJn1CSRg25LdntrKryx0zyhWeB_vXOQcIOUKGIEXPrwgrZPgcZQW7AhgODToJphtVKq-EVhocchLn-EKY0PIlPa6Dqq75cCcdVEYcQFaCys7-seZzXhoxduPP1Zsz90-NFyeWgriLolWX5CXFPBH5icKCjyT4JhP-Q5xu_N"/>
+<div class="absolute inset-0 bg-black/5"></div>
+</div>
+</div>
+</section>
+<!-- END: HeroBanner -->
+<!-- BEGIN: Breadcrumbs & Page Heading -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+<nav aria-label="Breadcrumb" class="flex text-xs text-gray-500 gap-2 items-center">
+<a class="hover:text-gray-900 transition" href="#">Home</a>
+<span>&gt;</span>
+<a class="hover:text-gray-900 transition" href="#">Catalog</a>
+<span>&gt;</span>
+<span class="text-gray-900 font-medium">Face Care</span>
+</nav>
+</div>
+<!-- END: Breadcrumbs & Page Heading -->
+<!-- BEGIN: CatalogLayout -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex flex-col lg:flex-row gap-8 items-start">
+<!-- BEGIN: LeftFilterSidebar -->
+<aside class="w-full lg:w-60 shrink-0 space-y-6 select-none">
+<!-- Filter Block: Categories -->
+<div class="border-b border-gray-200 pb-5" data-purpose="filter-category">
+<div class="flex justify-between items-center mb-3.5 cursor-pointer">
+<h3 class="text-sm font-semibold text-gray-900">Categories</h3>
+<i class="ph ph-caret-up text-xs text-gray-500"></i>
+</div>
+<div class="space-y-2.5 text-xs text-gray-600">
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>All Products</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black font-medium text-gray-900">
+<input checked="" class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0 accent-[#24412c]" type="checkbox"/>
+<span>Cleansers</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Toners</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Serums</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Masks</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black font-medium text-gray-900">
+<input checked="" class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Creams</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Body Care</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Hair</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer hover:text-black font-medium text-gray-900">
+<input checked="" class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Sets</span>
+</label>
+</div>
+</div>
+<!-- Filter Block: Price -->
+<div class="border-b border-gray-200 pb-6" data-purpose="filter-price">
+<div class="flex justify-between items-center mb-4 cursor-pointer">
+<h3 class="text-sm font-semibold text-gray-900">Price</h3>
+<i class="ph ph-caret-up text-xs text-gray-500"></i>
+</div>
+<!-- Slider visual simulation -->
+<div class="slider-track my-4">
+<div class="slider-fill"></div>
+<div class="absolute left-[8%] -top-1 w-2.5 h-2.5 bg-[#24412c] rounded-full ring-2 ring-white"></div>
+<div class="absolute right-[25%] -top-1 w-2.5 h-2.5 bg-[#24412c] rounded-full ring-2 ring-white"></div>
+</div>
+<div class="flex items-center justify-between gap-3 text-xs mt-4">
+<div class="w-1/2">
+<span class="text-[10px] text-gray-400 block mb-1">Min Price</span>
+<div class="border border-gray-200 rounded px-2 py-1.5 font-medium text-gray-800 bg-white">
+              $8
+            </div>
+</div>
+<span class="text-gray-400 mt-4">—</span>
+<div class="w-1/2">
+<span class="text-[10px] text-gray-400 block mb-1">Max Price</span>
+<div class="border border-gray-200 rounded px-2 py-1.5 font-medium text-gray-800 bg-white">
+              $1,563
+            </div>
+</div>
+</div>
+</div>
+<!-- Filter Block: Availability -->
+<div class="border-b border-gray-200 pb-5" data-purpose="filter-availability">
+<div class="flex justify-between items-center mb-3.5 cursor-pointer">
+<h3 class="text-sm font-semibold text-gray-900">Availability</h3>
+<i class="ph ph-caret-up text-xs text-gray-500"></i>
+</div>
+<label class="flex items-center gap-2.5 text-xs text-gray-600 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>Show Only Available Products</span>
+</label>
+</div>
+<!-- Filter Block: Rating -->
+<div class="border-b border-gray-200 pb-5" data-purpose="filter-rating">
+<div class="flex justify-between items-center mb-3.5 cursor-pointer">
+<h3 class="text-sm font-semibold text-gray-900">Rating</h3>
+<i class="ph ph-caret-up text-xs text-gray-500"></i>
+</div>
+<div class="space-y-2 text-xs text-gray-600">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span>All</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span class="flex items-center text-amber-500">
+<i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i>
+<span class="ml-1.5 text-gray-600 font-medium">5.0</span>
+</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span class="flex items-center text-amber-500">
+<i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph ph-star text-xs text-gray-300"></i>
+<span class="ml-1.5 text-gray-600 font-medium">4.0</span>
+</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span class="flex items-center text-amber-500">
+<i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i>
+<span class="ml-1.5 text-gray-600 font-medium">3.0</span>
+</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span class="flex items-center text-amber-500">
+<i class="ph-fill ph-star text-xs"></i><i class="ph-fill ph-star text-xs"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i>
+<span class="ml-1.5 text-gray-600 font-medium">2.0</span>
+</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-[#24412c] border-gray-300 focus:ring-0" type="checkbox"/>
+<span class="flex items-center text-amber-500">
+<i class="ph-fill ph-star text-xs"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i><i class="ph ph-star text-xs text-gray-300"></i>
+<span class="ml-1.5 text-gray-600 font-medium">1.0</span>
+</span>
+</label>
+</div>
+</div>
+<!-- Reset Filter Button -->
+<button class="w-full py-2 border border-gray-300 text-xs font-medium text-gray-700 rounded-md hover:bg-gray-100 flex items-center justify-center gap-2 transition">
+<i class="ph ph-arrow-counter-clockwise"></i>
+<span>Reset Filter</span>
+</button>
+</aside>
+<!-- END: LeftFilterSidebar -->
+<!-- BEGIN: MainProductGridSection -->
+<main class="flex-1 w-full" data-purpose="product-catalog">
+<!-- Top control bar: Result count & Sort dropdown -->
+<div class="flex items-center justify-between pb-6 mb-2">
+<span class="text-xs font-semibold text-gray-700 tracking-wide">156 Results</span>
+<div class="relative inline-block text-left">
+<select class="appearance-none bg-white border border-gray-200 rounded-md py-1.5 pl-3 pr-8 text-xs font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-0 cursor-pointer">
+<option>Sort by</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Best Selling</option>
+<option>Newest Arrivals</option>
+</select>
+<i class="ph ph-caret-down text-xs text-gray-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+</div>
+</div>
+<!-- 4-Column Product Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-7">
+<!-- Product Card 1 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Scalp set bottles" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Z6VzrF0WzamvQ6NVvXcEjlm40P18jlLW2epfeAuWqiM-whdYdXv09_Df41HvP6dWzF8TbsM08lGYWMjOo5WcQMi9gPV6yYfHsquXIyGR92c05gSd9NH7W15faSWKgIQr3bOajJ6UXMoQK7Dwt4Mfh7d_VpFgGaDgxu42Wf71z028zgsNNM36k8IOXoJ8WgyN9x_TCNs4UXJnNeHEfU1wxqoYQrR8BfC1kxBzUz8QAN_6ChtIXx4w"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              The cleanest scalp set — daily antioxidant support
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-transparent">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$289</span>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Body oil" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS4KQl3lXReEvvQzz1m6H56DuavL2nKs2YGswxmWxf8Vca2uQy2pwP0_abUZR2f2_doK7bNy0vs9R8QjjBLSAYr3dGg4Lhj-caldvEiFECf26iBR-LT7r3ojELLUjMpOnrz74BPzW6iRWZQh0oep0X6S3LujsbVxwq2kKzujA-8H0M_hE5ScFQLstizzyWR4IHZqpHujSWJjzjjDMxC5Ogt6dAacr-hq0QfTOUuRG_DwszneE4P3IK"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              A minimalist Lanshin exclusive body oil
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 3 (Sale) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Cleanser Box set" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgJHxs_t_C30gfkAJa1wpQOFj8PWHJM9Pq4QRs_DM7eTi17hocMFJdp3SeaQkv30Hcty0TGUYKHuIgncB_XoWJ6Bh3sMyuSFRtpOXtekoSkbtx_T0ZaQFzxBFCoq8Da_Gmfkji6duF0OMdgiNTrMHXoJJ7VDf0kUhGzOcnSsLQve5fkBQjfaXiov8VXwFLx4Vq3b21uH2tZ0rriHzZCXXy4wveJt8SwUYbbDvLdZxhuHcUCjY-cmCM"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">Sale</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              The No-Tox Box — perfect for leveling up your scalp routine
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<div class="flex items-center gap-1.5 text-xs">
+<span class="text-gray-400 line-through text-[11px]">$89</span>
+<span class="font-semibold text-rose-700">$59</span>
+</div>
+</div>
+</article>
+<!-- Product Card 4 (New) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Gel Cream" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUFw2-avQXM25_OPmIFIs-WG5QnjbqHTj4QhJR0qm19dCDCDjsF5wKWBvag-U4foD2ZuYAW0ZGV8r3qQiy9DjRvP5dI45ZOqsK4Bww9Chh5E7-taF7--ziK0cZGo3GWlwJ5bMel7HHuUUeZbXSaWfU6xcRoO5WgOenxzBGQcR5y3O3w4JDWiYX6ku5xdsSgP9v4HIvpNxP-tgOMlh5Wf-PgQMySdlfre61Z3vnBDOsfArxfLiJQkZq"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">New</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Cloud touch gel cream — air-light hydration
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 5 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Gel cream application" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpNxRA23d2bRHhg_tjGR8-bYPO9jbsn1da5SjZmHGSrdR1siXCZATmeU6wk1ITLNIXsJQPX5Go_jOLnxU6cOnNB_kbEaJEmrVAGvrgX5BdMiykcaTB0RAFx_4x3-ReLlg1ph5FEqwN3zM37aaRZb1m-0Lq_zfj2_lmbnt9dzZ76y94jWl42Uyo7fJeRz61spByVAkhTo-vVV_IWdA2HgKYFz8OXOYiUq20E7RYWtF0xUXHi-NYomfi"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Cloud touch gel cream — air-light hydration
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 6 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Exfoliation model" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZn9fI2CQETeLSVuEIKQLGTiyol78ObuLiXtilh0AYEkuosoAJ4koOg3Vm4DZdVEth2VmLuh41VZWyox_M7UEQN_G0ZyrWugLQYxqyEJcFLd18ZlCL_S00O1Gzuh3eF3b6Wt9Xr_xxzxGj4WUXRzx1qMtSJB6R67R85BzTmaL-qJFBuTvfY0q6UO7fFndWYBbCS_xdXGHJzk42Xx2ifVShkbK3CwhRPoYGwflVhe8q3n1VsmB2msRZ"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Gentle exfoliation without irritation
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$131</span>
+</div>
+</article>
+<!-- Product Card 7 (Sale) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Gel facial cleanser" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF_uq4U6FQyy22UZ9wOo_vBjUY9OrNWYyAqvUX6GzUrqd1e0N6NIKwNRqrUYS69UoivtzWtn7Rt03DvVpoN-Mdq_JlQK2H4v1_Czoz8nMYJmJV4XhQECbwdASJ4t4lwlv2gRMlzTRMTiEpNQNfoEbt7oT3WawzMiWR841TB4MARkz2jdbF4E1B0motWmAEzzpLwCRx_vfR10bDwvTv3COY2fhGZoRiupr_3ZanhYv4tUOzjglBs92R"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">Sale</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Gel facial cleanser — fresh hydration anytime
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<div class="flex items-center gap-1.5 text-xs">
+<span class="text-gray-400 line-through text-[11px]">$89</span>
+<span class="font-semibold text-rose-700">$59</span>
+</div>
+</div>
+</article>
+<!-- Product Card 8 (New) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Aqua clarity cleanser model" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEEhy8NjfKhnMniTju2kSET9ll9F_FI5rd0eL97ahTtXkmmZw91enZ7vjJj84v-nTvXt5dd69QYKrjaXDLG3-Y5MBLSoVe2Ntd5T4U_7Z9OjBW6xmXl214drkvWTPKgl_xzcM4UMX9_XI2nXMe7SiNRF7HoQQeEf2uCEGiUnEWuPFrxvy0R8XLW1QyzrYU23rkCCLngZdg46Vt8blcUsv-z2I-IGqhNZmGuXhkBjoauEDGuw5-37nZ"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">New</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Aqua clarity cleanser — refreshing, comfortable cleansing
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 9 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Moisturizing shampoo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-zL_4sgN0RmAamICXFPO_QADuK9xaZad69gd5ZfICzTSYwkZHCCc1_mPMQw1u_C4EFivQH_9jhPIguPfwAUDMeYqzGoSu6sw_XFwtDJ0MwJQW7SWRNey29DGxy2uJLPs_RZNQKEa5CFkrJBfSPXeI3vE5357bw6ef2GFRE5epNh5aaC_sumySVgOtrMefiooDKnffWakNWKuhEH6czadJsqXrzeVyBXVBABxDMO7wJgVei9Khoocv"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Moisturizing shampoo to promote hair growth
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$121</span>
+</div>
+</article>
+<!-- Product Card 10 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Touch gel facial cleanser" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGVUjQheHH4eRZ94wqif6pVk8DOaWmXX1AYM63lPkzDXE-_aBxjFUjAFtAjJb0btbIcEC44ceLfkrl0JuTJjuOM-Iyl8yidaEMizkiLBJAOYls1qJbdxsq966cE9KyCRh0-GUfQhMyRg8E7N5eNbJ3RDsm-9yFZZ7txjkVahDnmz-UFnDPEm4Xo781AmMNRY5fcEkbyRzld1X__NmKpo8uap3ZSOor9WCi8fHvQUt5968BkTHBLH-N"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Touch gel facial cleanser for balanced, fresh skin
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$213</span>
+</div>
+</article>
+<!-- Product Card 11 (Sale) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Cleanser star glow" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeMlBDAtJd6ZU6cFTOcte_MQDfnbdcI21C25OLXNBVBJYVnGDMvCN5ywpjo10gFEORY3_hAnFX3qPY24dzTc2N6FOlmtlovUfV67aOEVt2XxxtHDUs9VJw6sNFU4m9GJC_UBNMzR53lF81w2C7QeiODSOACzXmDzDGtJ7jRZ1csCF_L81lXtuO-RVuogK9emn5Mt4ZGTcwp41fB1ktLBDWUsuExDh7wHeVkmlnFA1lmUZX9uXjMXcc"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">Sale</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Cleanser star glow for tender and fresh skin
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$99</span>
+</div>
+</article>
+<!-- Product Card 12 (New) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Instant moisture fine cream" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6gge5bM-kDfuyEPMuQER6Xp3x-rX9vaCS6Ka9fP5rHXvP61g6W27EYd8p7Y06Ia-rpxm3qeu6KII8SeQX8LrglspApgA-h1E9VqMAKUo_z5xThrnNlisdra2vMDYOnCLmrulBAQj0U6C2V1jxd-jl2NSmZtXCrCg5iIdn50B0RX5aJYrCikvJEAgbvOTK_P5rG2qdoFwlIq_aZCDlTP0G92YsTxavhBD8iSUoHJET4ts6ltD000lA"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">New</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Instant moisture in an airy fine cream
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<div class="flex items-center gap-1.5 text-xs">
+<span class="text-gray-400 line-through text-[11px]">$94</span>
+<span class="font-semibold text-rose-700">$68</span>
+</div>
+</div>
+</article>
+<!-- Product Card 13 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Skin wrap mask" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FT_LiT_uuW_e0rCI3e3W_y6ybV-cREquQGOucUoEfa4SmpyZzNlVoEA92qI3AUgcejMoz7eTmth9wjw-33VE3q5e9rI8PbhXpltyddpXSsKMD3lN7VW7kCGXhMqdJenmMXKThMvvxm8oNyYq_qj7mQ7g7MbkWa4xcjCt_Fb1KtQGLJXytrwym7aGBpXHgIRccuH4AUOm36gozL1wKyJ9e_0mLVUArHIuAMzB9FAtc8rQpBCnJmeg"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Skin wrap mask — overnight recovery and deep moisture
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 14 (Sale) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Peeling facial oil" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpDLJ23Vp9KJPIdB1Wt_jj_JVBDO70zoBzdBxqIwVQ3MIhdwdYFAksn5M4e9dMmAHC0UExpuiMa9anjANrkOYh7uA9wUeW7bqax2aHTf2jKYVIxeLSkop6r1rJwrSojCDuIfwuNY8AkL9vUIUTTIilLAvkgV5xUZSL9hAqla2Wx3LJNp7bo__VgZwFJjxHL3eyd6K4JcDewQM66u_-FSMI4P5_J_x0gJNm9LFF9_lVInCEHz1JOIrT"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">Sale</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Peeling facial oil — fresh hydration and shining
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<div class="flex items-center gap-1.5 text-xs">
+<span class="text-gray-400 line-through text-[11px]">$180</span>
+<span class="font-semibold text-rose-700">$88</span>
+</div>
+</div>
+</article>
+<!-- Product Card 15 (New) -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Hair shampoo solutions" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkhDUGU2Y0AWWIYniOkMXRlQycRRnfWVyK2lRfay7LP_S4O_X9FUrS3wai1FlxNF6OiDFYhvulPojJB9ri0LsvGGuQa5Vi8f3aSru3pS_kx6WoVRvS3R6Tn-uoYemEy0QQ9c4doPQ2LJs_-wVWXJdo0Q1sHX2fjOpAZl07FywKtUizvmj57eNA_Shrkg3K6NKa9f-0LxONmNx2uU-68726Vov94glhKcY3Yfia7E5KoGPYShz0Z6SR"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 text-[9px] font-semibold bg-white/90 text-gray-700 rounded shadow-sm">New</span>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Hair wex shampoo solutions for brightness
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$89</span>
+</div>
+</article>
+<!-- Product Card 16 -->
+<article class="group flex flex-col justify-between" data-purpose="product-card">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2.5">
+<img alt="Pure solution essence" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMwtwb3Ifp20gDKVZ7uR0z1SyGjMxsVtUjf2Coqx2kalG5tdLTh7AsDiUoF7jrc0GCt7znPIM2QkDyr0RXlY7Oh8-txJKOgnDnrf6DaCrQQZKcP9LhA4AHz_mL32v3Hp0Ftk42HMDutVnuBwumOC5US5LcQ7ssK1rBizkd3ZMa5qFkai-ihaluQleXOHfvYNb1XwIaFYYzUVpaGNBM0h18GBLewBQHLnHh2QIOa-sL6SLbS7VsSXy1"/>
+<button class="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm">
+<i class="ph ph-heart text-sm"></i>
+</button>
+</div>
+<h4 class="text-xs text-gray-800 font-normal leading-snug line-clamp-2 mb-1.5">
+              Pure solution essence — air-light hydration
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2 text-gray-400 text-xs">
+<button class="hover:text-black"><i class="ph ph-heart"></i></button>
+<button class="hover:text-black"><i class="ph ph-bag"></i></button>
+</div>
+<span class="text-xs font-semibold text-gray-900">$132</span>
+</div>
+</article>
+</div>
+<!-- Pagination Navigation -->
+<nav aria-label="Pagination" class="flex items-center justify-center gap-2 mt-12 text-xs">
+<button class="w-8 h-8 rounded-full border border-gray-200 text-gray-500 hover:text-black flex items-center justify-center">
+<i class="ph ph-caret-left"></i>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-700 font-medium">1</button>
+<button class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-700 font-medium">2</button>
+<button class="w-8 h-8 rounded-full bg-gray-900 text-white font-medium">3</button>
+<span class="px-1 text-gray-400">...</span>
+<button class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-700 font-medium">12</button>
+<button class="w-8 h-8 rounded-full border border-gray-200 text-gray-500 hover:text-black flex items-center justify-center">
+<i class="ph ph-caret-right"></i>
+</button>
+</nav>
+</main>
+<!-- END: MainProductGridSection -->
+</div>
+<!-- END: CatalogLayout -->
+<!-- BEGIN: RecentlyViewedSection -->
+<section class="bg-stone-100/60 py-12 border-t border-gray-200/60" data-purpose="recently-viewed-carousel">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header with Arrows -->
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold tracking-tight text-gray-900">Recently Viewed</h2>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center shadow-xs">
+<i class="ph ph-caret-left"></i>
+</button>
+<button class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center shadow-xs">
+<i class="ph ph-caret-right"></i>
+</button>
+</div>
+</div>
+<!-- 5-Card Responsive Row -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+<!-- Rec 1 -->
+<article class="bg-white p-3 rounded-xl flex flex-col justify-between shadow-xs">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-50 mb-2">
+<img alt="Oil hydration" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqiacy2WJbbtAulYsuKMTvcDvUzCauHGrZMcJTeCTK7Bxn0mm5gRwd7I4hisnIrruqaEUCsEnswdB_dVr5P76MtreKpWpGT7OvpbZJf3crny5WJ9nrfDdyLef1BKh3QvfRWjve-hL-WWvHrHOl2M4QqpijMijlqRrjGNAk-w7ymLF-0KlEFpYShNWM1Na5LisX4nL9aRQ8Oc7eb310lyPdnZ5vaw4a1zCn6Bp3XEumnLc5bmK6z1kZ"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[8px] font-semibold bg-white/90 text-gray-700 rounded">New</span>
+<button class="absolute top-1.5 left-1.5 w-6 h-6 rounded-full bg-white/90 text-gray-600 flex items-center justify-center">
+<i class="ph ph-heart text-xs"></i>
+</button>
+</div>
+<h4 class="text-[11px] text-gray-800 line-clamp-2 leading-snug mb-1">
+              Oil hydration and daily antioxidant support
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-gray-400 text-xs">
+<i class="ph ph-heart"></i>
+<i class="ph ph-bag"></i>
+</div>
+<span class="text-xs font-semibold text-gray-900">$35</span>
+</div>
+</article>
+<!-- Rec 2 -->
+<article class="bg-white p-3 rounded-xl flex flex-col justify-between shadow-xs">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-50 mb-2">
+<img alt="Hair routine" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu9Bv3-4W14t_ntkJtQja9vllLoRsTbKeMy8R_sPi_erwJrX2aacxlA19yXnm9_U9X32rjenVzr_L75wH5saqU9Yx2fGQJAyHSim9Iu54zcC52O2kVc7LucOGnerzP3g6NRvtIQyOYw88arAOLe2F15RA-W5xQp3_go-Id4eKnUza22ILVDk1EEb8lF2LJ7T0Grdykgar_U7K247Nz38tPnHQlHHrnZkvLajEWiFkG2xekr6D2wsEj"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[8px] font-semibold bg-white/90 text-gray-700 rounded">New</span>
+<button class="absolute top-1.5 left-1.5 w-6 h-6 rounded-full bg-white/90 text-gray-600 flex items-center justify-center">
+<i class="ph ph-heart text-xs"></i>
+</button>
+</div>
+<h4 class="text-[11px] text-gray-800 line-clamp-2 leading-snug mb-1">
+              Smoother, healthier-looking hair from root to end
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-gray-400 text-xs">
+<i class="ph ph-heart"></i>
+<i class="ph ph-bag"></i>
+</div>
+<span class="text-xs font-semibold text-gray-900">$63</span>
+</div>
+</article>
+<!-- Rec 3 -->
+<article class="bg-white p-3 rounded-xl flex flex-col justify-between shadow-xs">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-50 mb-2">
+<img alt="Foaming cleanser" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9IsriWSIz1KKZ0TPK5y8E2btVXZs0qzE4A8nJubFq-Sqv7r24EaEz73T5Hn_YIyuqyYFH1EMWJ9X9IhbENA5gMqUEv5GTvwgLBy25pcelxVGLlx78fL9LFwGZAjzdVBo6LmcV0w934lTC88v5EEAcnbC4xi55_iFJmqDsZTLdXO_zuZ-hUUjhRn8NARjpGnWBuuFnQu_T4Ts0fgO5BTDYoN0226cODUhuFhtsESbkdYpz5yaTaz-u"/>
+<button class="absolute top-1.5 left-1.5 w-6 h-6 rounded-full bg-white/90 text-gray-600 flex items-center justify-center">
+<i class="ph ph-heart text-xs"></i>
+</button>
+</div>
+<h4 class="text-[11px] text-gray-800 line-clamp-2 leading-snug mb-1">
+              A soft foaming cleanser for balanced, fresh skin
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-emerald-800 text-xs">
+<i class="ph-fill ph-heart text-emerald-800"></i>
+<i class="ph ph-bag text-gray-400"></i>
+</div>
+<span class="text-xs font-semibold text-gray-900">$129</span>
+</div>
+</article>
+<!-- Rec 4 -->
+<article class="bg-white p-3 rounded-xl flex flex-col justify-between shadow-xs">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-50 mb-2">
+<img alt="Solid cleanser" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyM_2pjIE0pznLpalO-JbgIpbPfZkhjYY9ZKJb0p3nHCbQwb1-gsDCzPR5k15qZpW2FhxkS9YFyPHyZ93o2jqIS00KvnkW_pfWqRZpyOy52P92qXA2gkos0VlDbDNQ5BZv-0jXq-TvtR8w0I7EKfLedT4KRvgFNCul0Rt64iwJTzCHJ4-qc6-rpVAHzaahYfJTnuyWwnQtpfXOwbP1Oyq2GF4sE5ytcu8VU_08KybPaDGVVQozMhc0"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[8px] font-semibold bg-white/90 text-gray-700 rounded">Sale</span>
+<button class="absolute top-1.5 left-1.5 w-6 h-6 rounded-full bg-white/90 text-gray-600 flex items-center justify-center">
+<i class="ph ph-heart text-xs"></i>
+</button>
+</div>
+<h4 class="text-[11px] text-gray-800 line-clamp-2 leading-snug mb-1">
+              A minimalist solid cleanser that melts into the skin
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-gray-400 text-xs">
+<i class="ph ph-heart"></i>
+<i class="ph ph-bag"></i>
+</div>
+<div class="flex items-center gap-1 text-xs">
+<span class="text-gray-400 line-through text-[10px]">$89</span>
+<span class="font-semibold text-rose-700">$59</span>
+</div>
+</div>
+</article>
+<!-- Rec 5 -->
+<article class="bg-white p-3 rounded-xl flex flex-col justify-between shadow-xs">
+<div>
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-50 mb-2">
+<img alt="Fine cream" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS8Rs20A6i5oZmysEIQd52w48E6Hr6JQQUWSVlys_GBU9w_u_ZLZT18eeXlFsMPT_8TUZSlyZ1JSNQ08DcoO1ZxFxLIqkb1KQtNoxwhUulSQz3u5-ejrGwt7Z0_ohqqhUUynNE3PiDSiRxDKc10_FGKYR_t2shGTGRF0v8_EU3PvpG3t5BJpsAmIAkiToVbB1EHJLEte2097QLPwVdotySx8BRYcGgMs_eCwOxkD4iKv-SKCk-MPis"/>
+<button class="absolute top-1.5 left-1.5 w-6 h-6 rounded-full bg-white/90 text-gray-600 flex items-center justify-center">
+<i class="ph ph-heart text-xs"></i>
+</button>
+</div>
+<h4 class="text-[11px] text-gray-800 line-clamp-2 leading-snug mb-1">
+              Instant moisture in an airy fine cream
+            </h4>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-gray-400 text-xs">
+<i class="ph ph-heart"></i>
+<i class="ph ph-bag"></i>
+</div>
+<span class="text-xs font-semibold text-gray-900">$92</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- END: RecentlyViewedSection -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-black text-white pt-16 pb-12 mt-auto" data-purpose="page-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-gray-800 text-xs">
+<!-- Contact Information & Socials -->
+<div class="space-y-3">
+<p class="text-gray-200 font-semibold tracking-wide text-sm">121-737-2272</p>
+<p><a class="text-gray-400 hover:text-white transition" href="#">Live Chat</a></p>
+<p><a class="text-gray-400 hover:text-white transition" href="#">Message Us</a></p>
+<div class="flex items-center gap-3 pt-3">
+<a aria-label="Instagram" class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition" href="#">
+<i class="ph ph-instagram-logo text-sm"></i>
+</a>
+<a aria-label="YouTube" class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition" href="#">
+<i class="ph ph-youtube-logo text-sm"></i>
+</a>
+<a aria-label="Facebook" class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition" href="#">
+<i class="ph ph-facebook-logo text-sm"></i>
+</a>
+</div>
+</div>
+<!-- Shop Column -->
+<div>
+<h5 class="text-xs font-bold uppercase tracking-wider text-gray-100 mb-4">SHOP</h5>
+<ul class="space-y-2.5 text-gray-400">
+<li><a class="hover:text-white transition" href="#">Cleansers</a></li>
+<li><a class="hover:text-white transition" href="#">Toners</a></li>
+<li><a class="hover:text-white transition" href="#">Serums</a></li>
+<li><a class="hover:text-white transition" href="#">Masks</a></li>
+<li><a class="hover:text-white transition" href="#">Creams</a></li>
+<li><a class="hover:text-white transition" href="#">Body Care</a></li>
+<li><a class="hover:text-white transition" href="#">Hair</a></li>
+<li><a class="hover:text-white transition" href="#">Sets</a></li>
+</ul>
+</div>
+<!-- Loyalty Column -->
+<div>
+<h5 class="text-xs font-bold uppercase tracking-wider text-gray-100 mb-4">LOYALTY</h5>
+<ul class="space-y-2.5 text-gray-400">
+<li><a class="hover:text-white transition" href="#">Loyalty Program</a></li>
+<li><a class="hover:text-white transition" href="#">Discounts</a></li>
+<li><a class="hover:text-white transition" href="#">Earn 50 Points</a></li>
+</ul>
+</div>
+<!-- Quick Links Column -->
+<div>
+<h5 class="text-xs font-bold uppercase tracking-wider text-gray-100 mb-4">QUICK LINKS</h5>
+<ul class="space-y-2.5 text-gray-400">
+<li><a class="hover:text-white transition" href="#">Our Story</a></li>
+<li><a class="hover:text-white transition" href="#">Track Order</a></li>
+<li><a class="hover:text-white transition" href="#">FAQs</a></li>
+<li><a class="hover:text-white transition" href="#">Contact Us</a></li>
+</ul>
+</div>
+<!-- App Downloads -->
+<div>
+<h5 class="text-xs font-bold uppercase tracking-wider text-gray-100 mb-4">DOWNLOAD APP</h5>
+<div class="space-y-2.5">
+<a class="block px-4 py-2 border border-gray-700 rounded-lg text-gray-300 hover:border-white hover:text-white transition text-center font-medium text-xs" href="#">
+              Download in AppStore
+            </a>
+<a class="block px-4 py-2 border border-gray-700 rounded-lg text-gray-300 hover:border-white hover:text-white transition text-center font-medium text-xs" href="#">
+              Get It On Google Play
+            </a>
+</div>
+</div>
+</div>
+<!-- Legal Links -->
+<div class="pt-8 flex flex-wrap items-center justify-center gap-6 text-[11px] text-gray-500">
+<a class="hover:text-gray-300 transition underline underline-offset-2" href="#">Private Policy</a>
+<a class="hover:text-gray-300 transition underline underline-offset-2" href="#">Terms of Service</a>
+<a class="hover:text-gray-300 transition underline underline-offset-2" href="#">Refund Policy</a>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>
