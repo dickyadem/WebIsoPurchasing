@@ -2,6 +2,8 @@
 
 Aplikasi web purchasing / kasir berbasis katalog. Pengguna login, memilih produk, mengatur keranjang, checkout, lalu mencetak struk. Data produk, autentikasi, dan cart memakai [Fake Store API](https://fakestoreapi.com/).
 
+**Live demo:** [https://dickyadem.github.io/WebIsoPurchasing/](https://dickyadem.github.io/WebIsoPurchasing/)
+
 Tampilan katalog mengikuti mockup `design.html` (header promo, grid produk, filter, footer).
 
 ## Fitur
@@ -158,9 +160,9 @@ Jangan `npm run eject` kecuali memang perlu mengubah konfigurasi webpack secara 
 
 ## Deploy ke GitHub Pages
 
-Aplikasi ini project site, URL-nya:
+Aplikasi ini project site. URL live:
 
-`https://dickyadem.github.io/WebIsoPurchasing`
+[https://dickyadem.github.io/WebIsoPurchasing/](https://dickyadem.github.io/WebIsoPurchasing/)
 
 Yang sudah disiapkan di repo:
 
