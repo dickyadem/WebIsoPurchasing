@@ -18,6 +18,7 @@ const PPN = 0.11;
 const POSPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [productChoices, setProductChoices] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,46 +28,50 @@ const POSPage = () => {
   const [minRating, setMinRating] = useState(0);
   const [sortBy, setSortBy] = useState("default");
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [checkout, setCheckout] = useState({
-    userId: 5,
-    date: "2023-02-03",
-    products: [],
-  });
 
   useEffect(() => {
-    ProductService.list().then((response) => {
-      setProducts(response.data);
+    ProductService.getCategories().then((response) => {
+      setCategories(response.data || []);
     });
+  }, []);
 
-    if (productChoices.length > 0) {
-      let sum = 0;
-      productChoices.map((product) => {
-        sum = sum + product.subtotal;
-      });
-      sum = sum * PPN + sum;
-      setGrandTotal(sum);
-    }
+  useEffect(() => {
+    const request =
+      selectedCategory === "all"
+        ? ProductService.list({ sort: "asc", limit: 20 })
+        : ProductService.getByCategory(selectedCategory, { sort: "asc" });
+    request.then((response) => setProducts(response.data || []));
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    let sum = 0;
+    productChoices.forEach((product) => {
+      sum = sum + Number(product.subtotal || 0);
+    });
+    setGrandTotal(productChoices.length ? sum * PPN + sum : 0);
   }, [productChoices]);
 
   const handleCheckoutServiceCreate = () => {
-    setCheckout((values) => {
-      let temp = { ...values };
-      temp.userId = AuthService.getUserFromToken().sub;
-      temp.products = [];
-      for (const p of productChoices) {
-        temp.products.push({
-          productId: p.id,
-          quantity: p.quantity,
-        });
-      }
+    let userId = 1;
+    try {
+      userId = AuthService.getUserFromToken().sub;
+    } catch (error) {
+      console.log(error);
+    }
+    const payload = {
+      userId,
+      date: new Date().toISOString().split("T")[0],
+      products: productChoices.map((product) => ({
+        productId: product.id,
+        quantity: Number(product.quantity),
+      })),
+    };
 
-      let nowDate = new Date();
-      temp.date = nowDate.toISOString().split("T")[0];
-      return temp;
-    });
-
-    CheckoutService.create(checkout)
+    CheckoutService.create(payload)
       .then((response) => {
+        if (response.data?.id) {
+          CheckoutService.getById(response.data.id).catch(() => {});
+        }
         setProductChoices([]);
         setGrandTotal(0);
         let isPrint = window.confirm("Checkout berhasil, mau di print?");
@@ -75,7 +80,7 @@ const POSPage = () => {
             state: {
               productChoices,
               grandTotal,
-              checkout,
+              checkout: payload,
             },
           });
         }
@@ -120,7 +125,6 @@ const POSPage = () => {
     });
   };
 
-  const categories = [...new Set(products.map((product) => product.category))];
   const normalizedSearch = searchTerm.toLowerCase().trim();
   const filteredProducts = products
     .filter((product) => {
@@ -128,11 +132,10 @@ const POSPage = () => {
         .join(" ")
         .toLowerCase()
         .includes(normalizedSearch);
-      const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
       const matchesMinPrice = !minPrice || product.price >= Number(minPrice);
       const matchesMaxPrice = !maxPrice || product.price <= Number(maxPrice);
       const matchesRating = !minRating || (product.rating?.rate || 0) >= minRating;
-      return matchesSearch && matchesCategory && matchesMinPrice && matchesMaxPrice && matchesRating;
+      return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesRating;
     })
     .sort((first, second) => {
       if (sortBy === "price-low") return first.price - second.price;
@@ -186,6 +189,7 @@ const POSPage = () => {
             sortBy={sortBy}
             onSortChange={setSortBy}
             onAddProduct={handleAddProduct}
+            onOpenProduct={(product) => navigate(`/pos/product/${product.id}`)}
           />
         </div>
       </div>

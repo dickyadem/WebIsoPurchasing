@@ -1,7 +1,7 @@
 import { FaChevronDown } from "react-icons/fa";
 import ProductCard from "./ProductCard";
 
-const ProductGrid = ({ products, totalProducts, sortBy, onSortChange, onAddProduct }) => {
+const ProductGrid = ({ products, totalProducts, sortBy, onSortChange, onAddProduct, onOpenProduct }) => {
   return (
     <section className="catalog-products" aria-label="Product catalog">
       <div className="catalog-controls">
@@ -20,7 +20,12 @@ const ProductGrid = ({ products, totalProducts, sortBy, onSortChange, onAddProdu
       {products.length > 0 ? (
         <div className="catalog-product-grid">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} onAddProduct={onAddProduct} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddProduct={onAddProduct}
+              onOpenProduct={onOpenProduct}
+            />
           ))}
         </div>
       ) : (

@@ -1,4 +1,5 @@
-import { FaHeart, FaSearch, FaShoppingBag } from "react-icons/fa";
+import { FaHeart, FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const CatalogHeader = ({ searchTerm, onSearchChange, cartCount, onCartClick }) => {
   return (
@@ -13,7 +14,7 @@ const CatalogHeader = ({ searchTerm, onSearchChange, cartCount, onCartClick }) =
             <span />
             <span />
           </button>
-          <div className="catalog-brand">Iso<span>Buy</span></div>
+          <Link to="/pos" className="catalog-brand">Iso<span>Buy</span></Link>
           <label className="catalog-search">
             <FaSearch aria-hidden="true" />
             <input
@@ -24,6 +25,8 @@ const CatalogHeader = ({ searchTerm, onSearchChange, cartCount, onCartClick }) =
             />
           </label>
           <nav className="catalog-actions" aria-label="Catalog actions">
+            <Link to="/pos/product/new" aria-label="Add product">+</Link>
+            <Link to="/account" aria-label="Account"><FaUser /></Link>
             <button type="button" aria-label="Wishlist"><FaHeart /></button>
             <button type="button" aria-label="Open cart" onClick={onCartClick}>
               <FaShoppingBag />

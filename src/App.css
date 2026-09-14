@@ -321,6 +321,7 @@
   font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.05em;
+  text-decoration: none;
 }
 
 .catalog-brand span {
@@ -372,6 +373,7 @@
 }
 
 .catalog-actions button,
+.catalog-actions a,
 .product-heart,
 .product-quick-actions button {
   background: none;
@@ -380,7 +382,11 @@
   padding: 0.25rem;
 }
 
-.catalog-actions button:last-child {
+.catalog-actions a {
+  text-decoration: none;
+}
+
+.catalog-actions {
   align-items: center;
   display: flex;
   gap: 0.35rem;
@@ -769,6 +775,15 @@
   -webkit-line-clamp: 2;
 }
 
+.product-title-button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+}
+
 .catalog-product-footer {
   align-items: center;
   border-top: 1px solid #eeeeeb;
@@ -1087,4 +1102,92 @@
   .cart-drawer.transaction-card {
     position: absolute;
   }
+}
+
+.api-panel {
+  padding: 2rem 0 4rem;
+}
+
+.api-panel h1 {
+  color: #1f3b2b;
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0.75rem 0 1rem;
+}
+
+.api-panel h2 {
+  color: #1f3b2b;
+  font-size: 1rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.api-back {
+  color: #5e8a68;
+  font-size: 0.85rem;
+}
+
+.api-product-image {
+  background: #f1f1ef;
+  border-radius: 8px;
+  max-width: 220px;
+  object-fit: contain;
+}
+
+.api-price {
+  font-weight: 700;
+}
+
+.api-form,
+.api-panel label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.api-form {
+  gap: 0.9rem;
+  max-width: 36rem;
+}
+
+.api-form input,
+.api-form textarea,
+.api-panel input {
+  border: 1px solid #e0e1dc;
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+}
+
+.api-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.api-actions button,
+.api-panel li button {
+  background: #24412c;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.75rem;
+}
+
+.api-danger {
+  background: #8a3b3b !important;
+}
+
+.api-status {
+  color: #376044;
+  font-size: 0.85rem;
+}
+
+.api-panel ul {
+  padding-left: 1.1rem;
+}
+
+.api-panel pre {
+  background: #f7f7f5;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  overflow: auto;
+  padding: 1rem;
 }

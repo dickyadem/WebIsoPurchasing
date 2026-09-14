@@ -71,9 +71,12 @@ Tidak memakai Tailwind di runtime aplikasi. File `design.html` hanya referensi v
 
 | Path | Halaman | File |
 | --- | --- | --- |
-| `/` | Login | `src/pages/LoginPage.js` |
+| `/` | Login / daftar | `src/pages/LoginPage.js` |
 | `/pos` | Katalog + keranjang | `src/pages/POSPage.js` |
+| `/pos/product/new` | Tambah produk (`POST /products`) | `src/pages/ProductDetailPage.js` |
+| `/pos/product/:id` | Detail + PUT/PATCH/DELETE produk | `src/pages/ProductDetailPage.js` |
 | `/pos/print` | Struk | `src/pages/POSPrintPage.js` |
+| `/account` | User & cart API | `src/pages/AccountPage.js` |
 
 Router ada di `src/App.js`. `ContainerOutletWidget` hanya membungkus `<Outlet />`.
 
@@ -88,6 +91,8 @@ src/
     LoginPage.js
     POSPage.js
     POSPrintPage.js
+    ProductDetailPage.js
+    AccountPage.js
   components/catalog/
     CatalogHeader.js
     CatalogFilters.js
@@ -97,8 +102,9 @@ src/
     TransactionPanel.js
   services/
     AuthService.js          # POST /auth/login, token JWT
-    ProductService.js       # GET /products
-    CheckoutService.js      # POST /carts
+    ProductService.js       # products CRUD, kategori
+    CheckoutService.js      # carts CRUD + cart per user
+    UserService.js          # users CRUD
   utils/helpers.js          # duplikat item, format IDR
   widgets/commons/
     ContainerOutletWidget.js
@@ -111,11 +117,24 @@ State katalog (produk, filter, keranjang, total) hidup di `POSPage`. Komponen ca
 
 Base URL: `https://fakestoreapi.com` (`src/config.js`).
 
-| Method | Endpoint | Dipakai untuk |
-| --- | --- | --- |
-| `POST` | `/auth/login` | Login |
-| `GET` | `/products` | Daftar katalog |
-| `POST` | `/carts` | Checkout |
+| Resource | Method | Endpoint | Di app |
+| --- | --- | --- | --- |
+| Auth | `POST` | `/auth/login` | Login |
+| Products | `GET` | `/products?sort&limit` | Katalog |
+| Products | `GET` | `/products/categories` | Filter + footer |
+| Products | `GET` | `/products/category/{category}` | Filter kategori |
+| Products | `GET` | `/products/{id}` | Detail produk |
+| Products | `POST` | `/products` | Tambah produk |
+| Products | `PUT` / `PATCH` / `DELETE` | `/products/{id}` | Detail produk |
+| Carts | `POST` | `/carts` | Checkout |
+| Carts | `GET` | `/carts?limit&sort` | Akun |
+| Carts | `GET` | `/carts/user/{userId}` | Akun |
+| Carts | `GET` / `PUT` / `PATCH` / `DELETE` | `/carts/{id}` | Akun |
+| Users | `GET` | `/users` | Login (demo) + akun |
+| Users | `POST` | `/users` | Daftar |
+| Users | `GET` / `PUT` / `PATCH` / `DELETE` | `/users/{id}` | Akun |
+
+Write operation Fake Store **tidak persist** di server.
 
 Payload checkout:
 

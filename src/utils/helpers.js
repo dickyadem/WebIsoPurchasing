@@ -17,4 +17,15 @@ const helperReadableCurrency = (num) => {
   return n;
 };
 
-export { helperReadableCurrency, helperDuplicatedInArrayObject };
+const helperApiQuery = (url, params = {}) => {
+  const search = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      search.set(key, value);
+    }
+  });
+  const query = search.toString();
+  return query ? `${url}?${query}` : url;
+};
+
+export { helperReadableCurrency, helperDuplicatedInArrayObject, helperApiQuery };
